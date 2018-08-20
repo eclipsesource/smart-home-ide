@@ -16,6 +16,14 @@ Install yarn.
 
     npm install -g yarn
 
+Install typescript
+
+    npm install -g typescript
+    
+Install Theia and the example extension (including dependencies)
+
+    yarn install
+    
 ## Running the browser example
 
     yarn rebuild:browser
