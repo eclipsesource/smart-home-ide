@@ -16,7 +16,7 @@
     "react-redux": "^5.0.7",
     "recompose": "^0.28.2",
     "@theia/java": "latest",
-    "theia-tree-editor": "https://github.com/eclipsesource/theia-tree-editor.git#v0.0.5"
+    "theia-tree-editor": "https://github.com/eclipsesource/theia-tree-editor.git#experimental"
   },
   "devDependencies": {
     "rimraf": "latest",
