@@ -6,11 +6,6 @@ import {
   jsonformsReducer,
   RankedTester
 } from '@jsonforms/core';
-import {
-  treeWithDetailReducer,
-  findAllContainerProperties,
-  setContainerProperties
-} from '@jsonforms/material-tree-renderer';
 import { calculateLabel, filterPredicate } from 'theia-tree-editor';
 
 import schema from './schema';
@@ -44,18 +39,13 @@ export const initStore = async() => {
 
   const store: Store<any> = createStore(
     combineReducers({
-        jsonforms: jsonformsReducer(
-          {
-            treeWithDetail: treeWithDetailReducer
-          }
-        )
+        jsonforms: jsonformsReducer()
       }
     ),
     { ...jsonforms }
   );
 
   store.dispatch(Actions.init({}, schema, uischema));
-  store.dispatch(setContainerProperties(findAllContainerProperties(schema, schema)));
 
   return store;
 };

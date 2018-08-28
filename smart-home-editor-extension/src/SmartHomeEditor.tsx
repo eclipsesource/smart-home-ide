@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as _ from 'lodash';
-import { TreeWithDetailRenderer } from '@jsonforms/material-tree-renderer';
+import TreeWithDetailRenderer from '@jsonforms/material-tree-renderer/lib/tree/TreeWithDetailRenderer';
 import { connect } from 'react-redux';
 import {
   TreeEditorProps,
