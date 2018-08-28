@@ -13,8 +13,11 @@ import { ResourceProvider, Resource } from "@theia/core/lib/common";
 import { ResourceSaveable, TreeEditorWidget, TreeEditorWidgetOptions, TheiaTreeEditorContribution } from "theia-tree-editor";
 import URI from "@theia/core/lib/common/uri";
 import App, { initStore } from "../App";
+import { ThemeService } from '@theia/core/lib/browser/theming';
 
 import { getData } from "@jsonforms/core";
+
+const LIGHT_THEME_ID = "light"
 
 class MyResourceSaveable extends ResourceSaveable {
   constructor(resource: Resource, getData: () => any) {
@@ -43,7 +46,7 @@ function postRequest(url, data: String, contentType) {
 
 export default new ContainerModule(bind => {
   // add your contribution bindings here
-
+  ThemeService.get().setCurrentTheme(LIGHT_THEME_ID)
   bind(CommandContribution).to(SmartHomeEditorCommandContribution);
   bind(MenuContribution).to(SmartHomeEditorMenuContribution);
   bind<WidgetFactory>(WidgetFactory).toDynamicValue(ctx => ({
