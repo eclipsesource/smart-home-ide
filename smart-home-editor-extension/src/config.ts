@@ -4,7 +4,10 @@ export const labels = {
 	},
 	"#providedStateItem": {
 		constant: "Provided State",
-	},
+  },
+  "#requiredStatesItem" : {
+		constant: "Required State",
+  },
 	"#requiredActor": {
 		constant: "Required Actors"
 	},
@@ -16,7 +19,8 @@ export const labels = {
 export const modelMapping = {
 	attribute: 'type',
  	mapping: {
-		appdescription: '#appdescription',
+    appdescription: '#appdescription',
+    requiredStatesItem: '#requiredStatesItem',
 		providedStateItem: '#providedStateItem',
 		requiredActor: '#requiredActors',
 		requiredParameter: '#requiredParameters'

@@ -74,6 +74,57 @@ export default {
         ]
       }
     },
+    requiredStates: {
+      type: "array",
+      items: {
+        $id: "#requiredStatesItem",
+        type: "object",
+        properties: {
+          id: {
+            type: "string"
+          },
+          description: {
+            type: "string"
+          },
+          name: {
+            type: "string"
+          },
+          multiple: {
+            type: "boolean"
+          },
+          requiresName: {
+            type: "boolean"
+          },
+          type: {
+            type: "string",
+            enum: [
+              "Item",
+              "Virtual",
+              "Framework"
+            ]
+          },
+          tags: {
+            type: "array",
+            items: {
+              type: "string"
+            }
+          },
+          defaultValueString: {
+            type: "string"
+          }
+        },
+        additionalProperties: false,
+        required: [
+          "id",
+          "description",
+          "name",
+          "multiple",
+          "requiresName",
+          "type",
+          "defaultValueString"
+        ]
+      }
+    },
     requiredActors: {
       type: "array",
       items: {
