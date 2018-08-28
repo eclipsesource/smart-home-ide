@@ -21,23 +21,24 @@ class MyResourceSaveable extends ResourceSaveable {
     super(resource, getData);
   }
   onSave(data: any) {
-    console.log("I was called during save");
-    return super.onSave(data);
+    console.log(data);
+
+    return postRequest('http://localhost:9091/services/convert/json', data, 'application/json')
+    .then(response => {
+      return super.onSave(response.text())
+    })
   }
 }
 
-function postRequest(url, data: String) {
+function postRequest(url, data: String, contentType) {
   return fetch(url, {
     credentials: 'same-origin',
     method: 'POST',
     body: String(data),
     headers: new Headers({
-      'Content-Type': 'application/xml'
+      'Content-Type': contentType
     }),
   })
-    .then(response => {
-      return response.json()
-    })
 }
 
 export default new ContainerModule(bind => {
@@ -60,7 +61,10 @@ export default new ContainerModule(bind => {
           fileName: new URI(uri).path.base,
           saveable: new MyResourceSaveable(resource, () => getData(store.getState())),
           onResourceLoad: contentAsString => {
-            return postRequest('http://localhost:9091/services/convert/xmi', contentAsString)
+            return postRequest('http://localhost:9091/services/convert/xmi', contentAsString, 'application/xml')
+              .then(response => {
+                return response.json()
+              })
           }
         });
       return child.get(TreeEditorWidget);
