@@ -5,7 +5,8 @@
 import { SmartHomeEditorCommandContribution, SmartHomeEditorMenuContribution } from './smart-home-editor-contribution';
 import {
   CommandContribution,
-  MenuContribution
+  MenuContribution,
+  MessageService
 } from "@theia/core/lib/common";
 import { ContainerModule } from "inversify";
 import { WidgetFactory, OpenHandler } from "@theia/core/lib/browser";
@@ -16,16 +17,17 @@ import App, { initStore } from "../App";
 import { ThemeService } from '@theia/core/lib/browser/theming';
 
 import { getData } from "@jsonforms/core";
+import { SmartHomeTreeEditorContribution } from './SmartHomeTreeEditorContribution';
 
 const LIGHT_THEME_ID = "light"
 
 class MyResourceSaveable extends ResourceSaveable {
-  constructor(resource: Resource, getData: () => any) {
+  constructor(resource: Resource, getData: () => any, private messageService: MessageService) {
     super(resource, getData);
   }
   onSave(data: any) {
     return postRequest('http://localhost:9091/services/convert/json', JSON.stringify(data), 'application/json')
-      .then(response => response.text())
+      .then(response => response.text(), () => this.messageService.error('Save was not possible.'))
   }
 }
 
@@ -50,6 +52,7 @@ export default new ContainerModule(bind => {
     async createWidget(uri: string): Promise<TreeEditorWidget> {
       const { container } = ctx;
       const resource = await container.get<ResourceProvider>(ResourceProvider)(new URI(uri));
+      const messageService = await container.get<MessageService>(MessageService)
       const store = await initStore();
       const child = container.createChild();
       child.bind<TreeEditorWidgetOptions>(TreeEditorWidgetOptions)
@@ -58,20 +61,18 @@ export default new ContainerModule(bind => {
           store,
           EditorComponent: App,
           fileName: new URI(uri).path.base,
-          saveable: new MyResourceSaveable(resource, () => getData(store.getState())),
+          saveable: new MyResourceSaveable(resource, () => getData(store.getState()), messageService),
           onResourceLoad: contentAsString => {
             return postRequest('http://localhost:9091/services/convert/xmi', contentAsString, 'application/xml')
-              .then(response => {
-                return response.json()
-              })
+              .then(response => response.json(), () => messageService.error('Could not get App Manifest Editor contents.'))
           }
         });
       return child.get(TreeEditorWidget);
     }
   }));
   bind(TreeEditorWidget).toSelf();
-  bind(TheiaTreeEditorContribution).toSelf().inSingletonScope();
+  bind(SmartHomeTreeEditorContribution).toSelf().inSingletonScope();
   [CommandContribution, MenuContribution, OpenHandler].forEach(serviceIdentifier =>
-    bind(serviceIdentifier).toService(TheiaTreeEditorContribution)
+    bind(serviceIdentifier).toService(SmartHomeTreeEditorContribution)
   );
 });
