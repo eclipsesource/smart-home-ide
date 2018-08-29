@@ -36,7 +36,7 @@ export default {
           ]
         }
       },
-      required: ["id", "description", "name", "multiple", "requiresName", "type", "tags", "defaultValueString", "defaultValue", "eClass"]
+      required: ["id", "description", "name", "multiple", "requiresName", "tags", "eClass"]
     },
 
     // CONCRETE STATES
@@ -98,7 +98,7 @@ export default {
           ]
         }
       },
-      required: ["id", "description", "name", "multiple", "requiresName", "type", "tags", "defaultValueString", "defaultValue", "eClass"]
+      required: ["id", "description", "name", "multiple", "requiresName", "tags", "eClass"]
     },
     heatingActor: {
       $id: "#heatingActor",
