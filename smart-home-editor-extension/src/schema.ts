@@ -134,15 +134,15 @@ export default {
       $id: "#parameter",
       type: "object",
       properties: {
-        name: { type: "string" }
-      },
-      eClass: {
-        type: "string",
-        enum: [
-          "http://eclipsesource.com/smarthome/core/model/appdescription#//BooleanParameter",
-          "http://eclipsesource.com/smarthome/core/model/appdescription#//DateTimeParameter",
-          "http://eclipsesource.com/smarthome/core/model/appdescription#//NumberParameter"
-        ]
+        name: { type: "string" },
+        eClass: {
+          type: "string",
+          enum: [
+            "http://eclipsesource.com/smarthome/core/model/appdescription#//BooleanParameter",
+            "http://eclipsesource.com/smarthome/core/model/appdescription#//DateTimeParameter",
+            "http://eclipsesource.com/smarthome/core/model/appdescription#//NumberParameter"
+          ]
+        }
       },
       required: ["name", "eClass"]
     },
