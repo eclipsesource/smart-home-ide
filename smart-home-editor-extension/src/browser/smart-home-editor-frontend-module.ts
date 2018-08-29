@@ -24,12 +24,8 @@ class MyResourceSaveable extends ResourceSaveable {
     super(resource, getData);
   }
   onSave(data: any) {
-    console.log(data);
-
-    return postRequest('http://localhost:9091/services/convert/json', data, 'application/json')
-    .then(response => {
-      return super.onSave(response.text())
-    })
+    return postRequest('http://localhost:9091/services/convert/json', JSON.stringify(data), 'application/json')
+      .then(response => response.text())
   }
 }
 
