@@ -11,7 +11,7 @@ import {
 import { ContainerModule } from "inversify";
 import { WidgetFactory, OpenHandler } from "@theia/core/lib/browser";
 import { ResourceProvider, Resource } from "@theia/core/lib/common";
-import { ResourceSaveable, TreeEditorWidget, TreeEditorWidgetOptions, TheiaTreeEditorContribution } from "theia-tree-editor";
+import { ResourceSaveable, TreeEditorWidget, TreeEditorWidgetOptions } from "theia-tree-editor";
 import URI from "@theia/core/lib/common/uri";
 import App, { initStore } from "../App";
 import { ThemeService } from '@theia/core/lib/browser/theming';
