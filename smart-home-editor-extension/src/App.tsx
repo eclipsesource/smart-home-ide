@@ -9,14 +9,13 @@ import {
   JsonSchema,
   resolveData
 } from '@jsonforms/core';
-import { /*calculateLabel,*/ filterPredicate } from 'theia-tree-editor';
+import { /*calculateLabel,*/ filterPredicate, TreeEditorApp } from 'theia-tree-editor';
 import { Work } from "@material-ui/icons";
 const JsonRefs = require("json-refs");
 
 import schema from './schema';
 
 import {labels, modelMapping, uischemas} from './config';
-import SmartHomeEditor from './SmartHomeEditor';
 import { InstanceLabelProvider, SchemaLabelProvider } from '@jsonforms/material-tree-renderer/lib/helpers/LabelProvider';
 import { Icon } from "@material-ui/core";
 
@@ -100,4 +99,4 @@ export default defaultProps(
     },
     'imageProvider': imageProvider
   }
-)(SmartHomeEditor);
+)(TreeEditorApp);

@@ -9659,7 +9659,7 @@ textextensions@2:
 
 "theia-tree-editor@https://github.com/eclipsesource/theia-tree-editor.git#master":
   version "0.0.6"
-  resolved "https://github.com/eclipsesource/theia-tree-editor.git#0dfb97b95dfb89da1d3c763d928e952ff0f81a46"
+  resolved "https://github.com/eclipsesource/theia-tree-editor.git#8ad5e9e274ed43aa5a4b9af08ee1663f7899eb8c"
   dependencies:
     "@jsonforms/core" "^2.0.8"
     "@jsonforms/material-tree-renderer" "^2.0.11"
