@@ -16,13 +16,13 @@ import URI from "@theia/core/lib/common/uri";
 import App, { initStore } from "../App";
 import { ThemeService } from '@theia/core/lib/browser/theming';
 import { IYoServer, yoPath, IYoClient } from '../common/scaffolding-protocol';
-
 import { getData } from "@jsonforms/core";
 import { SmartHomeTreeEditorContribution } from './SmartHomeTreeEditorContribution';
 import { JUnitResultOpenHandler } from './editor-contribution';
+import { SCMCommandsContribution, SCMTasksContribution, SCMMenuActionsContribution } from './scm-task-contribution';
+import { TaskContribution } from '@theia/task/lib/browser';
 
 import '../../src/browser/style/index.css';
-
 const LIGHT_THEME_ID = "light"
 
 class MyResourceSaveable extends ResourceSaveable {
@@ -92,6 +92,11 @@ export default new ContainerModule(bind => {
         const client = ctx.container.get(SmartHomeYoClient)
         return connection.createProxy<IYoServer>(yoPath, client);
     }).inSingletonScope();
+
+    // SCM
+    bind(CommandContribution).to(SCMCommandsContribution);
+    bind(MenuContribution).to(SCMMenuActionsContribution);
+    bind(TaskContribution).to(SCMTasksContribution);
 });
 
 @injectable()
