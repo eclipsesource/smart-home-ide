@@ -10,7 +10,8 @@
   ],
   "dependencies": {
     "@jsonforms/material-renderers": "^2.0.8",
-    "@jsonforms/material-tree-renderer": "^2.0.9",
+    "@jsonforms/material-tree-renderer": "^2.0.11",
+    "@material-ui/icons": "^3.0.1",
     "@theia/core": "latest",
     "@theia/editor": "latest",
     "@theia/filesystem": "latest",
@@ -24,6 +25,7 @@
     "@theia/task": "latest",
     "@theia/terminal": "latest",
     "@theia/workspace": "latest",
+    "json-refs": "^3.0.9",
     "lodash": "^4.17.10",
     "react-redux": "^5.0.7",
     "readline": "^1.3.0",

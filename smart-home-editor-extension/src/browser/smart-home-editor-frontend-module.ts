@@ -9,9 +9,9 @@ import {
   MessageService
 } from "@theia/core/lib/common";
 import { ContainerModule, injectable } from "inversify";
-import { WidgetFactory, OpenHandler, WebSocketConnectionProvider, NavigatableWidgetOptions } from "@theia/core/lib/browser";
+import { WidgetFactory, OpenHandler, WebSocketConnectionProvider, WidgetManager, NavigatableWidgetOptions } from "@theia/core/lib/browser";
 import { ResourceProvider, Resource } from "@theia/core/lib/common";
-import { ResourceSaveable, TreeEditorWidget, TreeEditorWidgetOptions } from "theia-tree-editor";
+import {DirtyResourceSavable, TreeEditorWidget, TreeEditorWidgetOptions} from "theia-tree-editor";
 import URI from "@theia/core/lib/common/uri";
 import App, { initStore } from "../App";
 import { ThemeService } from '@theia/core/lib/browser/theming';
@@ -29,9 +29,9 @@ import '../../src/browser/style/index.css';
 import { SmartHomeMenuContribution } from '../common/smart-home-menu';
 const LIGHT_THEME_ID = "light"
 
-class MyResourceSaveable extends ResourceSaveable {
-  constructor(resource: Resource, getData: () => any, private messageService: MessageService, private codeGenerator: CodeGenerator) {
-    super(resource, getData);
+class MyResourceSaveable extends DirtyResourceSavable {
+  constructor(resource: Resource, getData: () => any, private messageService: MessageService, private codeGenerator: CodeGenerator, widgetManager: WidgetManager) {
+    super(resource, getData, widgetManager, messageService);
   }
   onSave(data: any) {
     return postRequest(window.location.protocol + '//' + window.location.hostname + ':9091/services/convert/json',
@@ -67,14 +67,16 @@ export default new ContainerModule(bind => {
 
   bind(OpenHandler).to(JUnitResultOpenHandler)
   bind(CodeGenerator).toSelf()
+  bind(TreeEditorWidget).toSelf();
   bind<WidgetFactory>(WidgetFactory).toDynamicValue(ctx => ({
     id: 'theia-tree-editor',
     async createWidget(options: NavigatableWidgetOptions ): Promise<TreeEditorWidget> {
       const { container } = ctx;
       const uri = new URI(options.uri);
       const resource = await container.get<ResourceProvider>(ResourceProvider)(uri);
-      const messageService = await container.get<MessageService>(MessageService)
-      const codeGenerator = await container.get<CodeGenerator>(CodeGenerator)
+      const widgetManager = await container.get<WidgetManager>(WidgetManager);
+      const messageService = await container.get<MessageService>(MessageService);
+      const codeGenerator = await container.get<CodeGenerator>(CodeGenerator);
       const store = await initStore();
       const child = container.createChild();
       child.bind<TreeEditorWidgetOptions>(TreeEditorWidgetOptions)
@@ -83,7 +85,7 @@ export default new ContainerModule(bind => {
           store,
           EditorComponent: App,
           fileName: uri.path.base,
-          saveable: new MyResourceSaveable(resource, () => getData(store.getState()), messageService, codeGenerator),
+          saveable: new MyResourceSaveable(resource, () => getData(store.getState()), messageService, codeGenerator, widgetManager),
           onResourceLoad: contentAsString => {
             return postRequest(
               window.location.protocol + '//' + window.location.hostname + ':9091/services/convert/xmi',
@@ -95,7 +97,6 @@ export default new ContainerModule(bind => {
       return child.get(TreeEditorWidget);
     }
   }));
-  bind(TreeEditorWidget).toSelf();
   bind(SmartHomeTreeEditorContribution).toSelf().inSingletonScope();
   [CommandContribution, MenuContribution, OpenHandler].forEach(serviceIdentifier =>
     bind(serviceIdentifier).toService(SmartHomeTreeEditorContribution)
