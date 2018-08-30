@@ -16,7 +16,6 @@ class SmartHomeEditor extends React.Component<SmartHomeEditorProps, {}> {
   
   componentDidUpdate(prevProps) {
     if (!_.isEqual(this.props.rootData, prevProps.rootData)) {
-      console.log('dirty', this.props.saveable.dirty);
       this.props.saveable.dirty = true;
     }
   }

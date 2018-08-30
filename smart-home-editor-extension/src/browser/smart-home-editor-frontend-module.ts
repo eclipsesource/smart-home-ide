@@ -55,6 +55,18 @@ export default new ContainerModule(bind => {
   bind(CommandContribution).to(SmartHomeEditorCommandContribution);
   bind(MenuContribution).to(SmartHomeEditorMenuContribution);
   bind(OpenHandler).to(JUnitResultOpenHandler)
+  bind(TreeEditorWidget).toSelf();
+  bind(SmartHomeTreeEditorContribution).toSelf().inSingletonScope();
+  [CommandContribution, MenuContribution, OpenHandler].forEach(serviceIdentifier =>
+    bind(serviceIdentifier).toService(SmartHomeTreeEditorContribution)
+  );
+
+  bind(SmartHomeYoClient).toSelf()
+  bind(IYoServer).toDynamicValue(ctx => {
+    const connection = ctx.container.get(WebSocketConnectionProvider);
+    const client = ctx.container.get(SmartHomeYoClient)
+    return connection.createProxy<IYoServer>(yoPath, client);
+  }).inSingletonScope();
   bind<WidgetFactory>(WidgetFactory).toDynamicValue(ctx => ({
     id: 'theia-tree-editor',
     async createWidget(uri: string): Promise<TreeEditorWidget> {
@@ -72,7 +84,7 @@ export default new ContainerModule(bind => {
           fileName: new URI(uri).path.base,
           saveable: new MyResourceSaveable(resource, () => getData(store.getState()), widgetManager, messageService),
           onResourceLoad: contentAsString => {
-            return JSON.parse(contentAsString);
+            return Promise.resolve(JSON.parse(contentAsString));
             // return postRequest(
             //   window.location.protocol + '//' + window.location.hostname + ':9091/services/convert/xmi',
             //   contentAsString,
@@ -83,18 +95,6 @@ export default new ContainerModule(bind => {
       return child.get(TreeEditorWidget);
     }
   }));
-  bind(TreeEditorWidget).toSelf();
-  bind(SmartHomeTreeEditorContribution).toSelf().inSingletonScope();
-  [CommandContribution, MenuContribution, OpenHandler].forEach(serviceIdentifier =>
-    bind(serviceIdentifier).toService(SmartHomeTreeEditorContribution)
-  );
-
-    bind(SmartHomeYoClient).toSelf()
-    bind(IYoServer).toDynamicValue(ctx => {
-        const connection = ctx.container.get(WebSocketConnectionProvider);
-        const client = ctx.container.get(SmartHomeYoClient)
-        return connection.createProxy<IYoServer>(yoPath, client);
-    }).inSingletonScope();
 });
 
 @injectable()
