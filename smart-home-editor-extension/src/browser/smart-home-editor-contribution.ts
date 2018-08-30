@@ -1,23 +1,24 @@
 import { injectable, inject } from "inversify";
 import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry, SelectionService, notEmpty, UriSelection } from "@theia/core/lib/common";
-import { CommonMenus } from "@theia/core/lib/browser";
 import { UriAwareCommandHandler, UriCommandHandler } from "@theia/core/lib/common/uri-command-handler";
 import URI from '@theia/core/lib/common/uri';
 import { FileSystem } from "@theia/filesystem/lib/common/filesystem";
 import { Workspace } from "@theia/languages/lib/common";
 import { IYoServer, ScaffoldingOptions } from "../common/scaffolding-protocol";
 import { ScaffoldingDialog } from "./scaffolding-dialog";
+import { SmartHomeMenus } from "../common/smart-home-menu";
+
+export { SmartHomeMenus } from "../common/smart-home-menu"; 
 
 export const DeployToEditorCommand = {
     id: 'SmartHomeEditor.deploy.command',
-    label: "Deploy App "
+    label: "Deploy App"
 };
 
 export const ScaffoldingCommand = {
     id: 'SmartHomeEditor.scaffolding.command',
-    label: "New Smart Home App project"
+    label: "Create New Project"
 };
-
 
 @injectable()
 export class SmartHomeEditorCommandContribution implements CommandContribution {
@@ -106,11 +107,11 @@ export class SmartHomeEditorCommandContribution implements CommandContribution {
 export class SmartHomeEditorMenuContribution implements MenuContribution {
 
     registerMenus(menus: MenuModelRegistry): void {
-        menus.registerMenuAction(CommonMenus.FILE_SAVE, {
+        menus.registerMenuAction(SmartHomeMenus.SMART_HOME, {
             commandId: DeployToEditorCommand.id,
             label: DeployToEditorCommand.label
         });
-        menus.registerMenuAction(CommonMenus.FILE_SAVE, {
+        menus.registerMenuAction(SmartHomeMenus.SMART_HOME, {
             commandId: ScaffoldingCommand.id,
             label: ScaffoldingCommand.label
         });

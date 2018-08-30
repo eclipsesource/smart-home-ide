@@ -2,8 +2,8 @@ import { inject, injectable } from "inversify";
 import { TaskContribution, TaskProviderRegistry, TaskService } from "@theia/task/lib/browser";
 import { TaskConfiguration } from "@theia/task/lib/common/task-protocol";
 import { CommandContribution, MenuContribution, MenuModelRegistry, CommandRegistry, MessageService } from "@theia/core";
-import { CommonMenus } from "@theia/core/lib/browser";
 import { TerminalService } from "@theia/terminal/lib/browser/base/terminal-service"
+import { SmartHomeMenus } from "../common/smart-home-menu";
 
 const RunCleanTaskCommand = {
   id: 'SmartHomeEditor.runclean.command',
@@ -38,6 +38,7 @@ const runBuildTask: TaskConfiguration = {
   command: "mvn",
   args: [
     "package",
+    "-Dmaven.test.skip=true",
     "-f",
     pomFileName
   ]
@@ -97,15 +98,15 @@ export class SCMTasksContribution implements TaskContribution {
 export class SCMMenuActionsContribution implements MenuContribution {
 
   registerMenus(menus: MenuModelRegistry): void {
-    menus.registerMenuAction(CommonMenus.FILE_SAVE, {
+    menus.registerMenuAction(SmartHomeMenus.SMART_HOME, {
       commandId: RunCleanTaskCommand.id,
       label: RunCleanTaskCommand.label
     });
-    menus.registerMenuAction(CommonMenus.FILE_SAVE, {
+    menus.registerMenuAction(SmartHomeMenus.SMART_HOME, {
       commandId: RunBuildTaskCommand.id,
       label: RunBuildTaskCommand.label
     });
-    menus.registerMenuAction(CommonMenus.FILE_SAVE, {
+    menus.registerMenuAction(SmartHomeMenus.SMART_HOME, {
       commandId: RunTestsTaskCommand.id,
       label: RunTestsTaskCommand.label
     });
