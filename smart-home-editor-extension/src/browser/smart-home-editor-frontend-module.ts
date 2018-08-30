@@ -22,7 +22,10 @@ import { JUnitResultOpenHandler } from './editor-contribution';
 import { SCMCommandsContribution, SCMTasksContribution, SCMMenuActionsContribution } from './scm-task-contribution';
 import { TaskContribution } from '@theia/task/lib/browser';
 
+export * from '../common/smart-home-menu';
+
 import '../../src/browser/style/index.css';
+import { SmartHomeMenuContribution } from '../common/smart-home-menu';
 const LIGHT_THEME_ID = "light"
 
 class MyResourceSaveable extends ResourceSaveable {
@@ -52,7 +55,11 @@ export default new ContainerModule(bind => {
   // add your contribution bindings here
   ThemeService.get().setCurrentTheme(LIGHT_THEME_ID)
   bind(CommandContribution).to(SmartHomeEditorCommandContribution);
+
+  // menu
+  bind(MenuContribution).to(SmartHomeMenuContribution);
   bind(MenuContribution).to(SmartHomeEditorMenuContribution);
+
   bind(OpenHandler).to(JUnitResultOpenHandler)
   bind<WidgetFactory>(WidgetFactory).toDynamicValue(ctx => ({
     id: 'theia-tree-editor',
