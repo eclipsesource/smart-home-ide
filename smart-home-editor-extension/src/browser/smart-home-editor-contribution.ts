@@ -18,6 +18,7 @@ export const ScaffoldingCommand = {
     label: "New Smart Home App project"
 };
 
+
 @injectable()
 export class SmartHomeEditorCommandContribution implements CommandContribution {
 
@@ -35,16 +36,8 @@ export class SmartHomeEditorCommandContribution implements CommandContribution {
 
     registerCommands(registry: CommandRegistry): void {
         const handler = new UriAwareCommandHandler<URI[]>(this.selectionService, this.deployHandler(), { multi: true });
+        registry.registerCommand(ScaffoldingCommand, this.scaffoldingHandler());
         registry.registerCommand(DeployToEditorCommand, handler);
-        registry.registerCommand(ScaffoldingCommand, this.scaffoldingHandler())
-    }
-
-    protected deployHandler(): UriCommandHandler<URI[]> {
-        return {
-            execute: uris => this.deployApp(uris),
-            isEnabled: uris => this.isDeployEnabled(uris),
-            isVisible: uris => this.isDeployVisible(uris),
-        };
     }
 
     protected scaffoldingHandler() {
@@ -65,6 +58,14 @@ export class SmartHomeEditorCommandContribution implements CommandContribution {
                 });
             }
         }
+    }
+
+    protected deployHandler(): UriCommandHandler<URI[]> {
+        return {
+            execute: uris => this.deployApp(uris),
+            isEnabled: uris => this.isDeployEnabled(uris),
+            isVisible: uris => this.isDeployVisible(uris),
+        };
     }
     protected async deployApp(uris: URI[]): Promise<void> {
         new Promise(() => {
