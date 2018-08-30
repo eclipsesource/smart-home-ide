@@ -7,7 +7,7 @@ const chalk = require('chalk');
 const yosay = require('yosay');
 
 module.exports = class extends Generator {
-  
+
   constructor(args, opts) {
     super(args, opts);
 
@@ -15,7 +15,7 @@ module.exports = class extends Generator {
     this.argument('appNameSpace', { type: String, required: true });
     this.argument('appDescription', { type: String, required: true });
     this.argument('authorName', { type: String, required: true });
-    this.argument('destinationPath', {type: String, required: false } );
+    this.argument('destinationPath', { type: String, required: false });
     console.log('handed in destination path', this.options.destinationPath);
 
     if (this.options.destinationPath !== undefined && this.options.destinationPath !== null) {
@@ -91,14 +91,14 @@ module.exports = class extends Generator {
       }
     )
 
-    const bundleSymbolicName =  `${this.options.appNameSpace}.${this.options.appName.toLowerCase().replace(/\s+/g, '')}`
+    const bundleSymbolicName = `${this.options.appNameSpace}.${this.options.appName.toLowerCase().replace(/\s+/g, '')}`
     // Manifest
     this.fs.copyTpl(
       this.templatePath('META-INF/MANIFEST.MF'),
       this.destinationPath('META-INF/MANIFEST.MF'),
       {
-        bundleName: this.options.appName,
-        bundleSymbolicName: bundleSymbolicName
+        bundleName: this.options.appName + "\n",
+        bundleSymbolicName: bundleSymbolicName + "\n"
       }
     )
 
@@ -109,6 +109,12 @@ module.exports = class extends Generator {
       {
         projectName: bundleSymbolicName
       }
+    )
+
+    // icons
+    this.fs.copy(
+      this.templatePath('icons/home.png'),
+      this.destinationPath('icons/home.png'),
     )
 
     // Libs
@@ -126,6 +132,20 @@ module.exports = class extends Generator {
       this.templatePath('App.java'),
       this.destinationPath(path.join('src', packagePath, 'App.java')),
       { packageName: this.options.appNameSpace }
+    )
+
+    // App Description
+    this.fs.copyTpl(
+      this.templatePath('AD-INF/APP.ad'),
+      this.destinationPath('AD-INF/APP.ad'),
+      {
+        id: bundleSymbolicName,
+        bundle: bundleSymbolicName,
+        classname: this.options.appNameSpace + '.App',
+        description: this.options.appDescription,
+        name: this.options.appName,
+        author: this.options.authorName
+      }
     )
 
     // Unit Test Class

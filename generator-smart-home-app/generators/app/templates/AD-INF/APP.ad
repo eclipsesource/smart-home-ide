@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<es.sh.appdescription:App xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:es.sh.appdescription="http://eclipsesource.com/smarthome/core/model/appdescription" id="<%- id -%>" description="<%- description -%>" name="<%- name -%>" icon="icons/home.png" author="<%- author -%>" bundle="<%- bundle -%>" className="<%- classname -%>">
+</es.sh.appdescription:App>
