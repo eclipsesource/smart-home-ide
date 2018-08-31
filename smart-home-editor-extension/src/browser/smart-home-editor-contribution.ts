@@ -1,5 +1,5 @@
 import { injectable, inject } from "inversify";
-import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry, SelectionService, notEmpty, UriSelection } from "@theia/core/lib/common";
+import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry, SelectionService, notEmpty, UriSelection, MessageService } from "@theia/core/lib/common";
 import { UriAwareCommandHandler, UriCommandHandler } from "@theia/core/lib/common/uri-command-handler";
 import URI from '@theia/core/lib/common/uri';
 import { FileSystem } from "@theia/filesystem/lib/common/filesystem";
@@ -25,6 +25,9 @@ export class SmartHomeEditorCommandContribution implements CommandContribution {
 
     @inject(SelectionService)
     protected readonly selectionService: SelectionService;
+
+    @inject(MessageService)
+    protected readonly messageService: MessageService;
 
     @inject(FileSystem)
     protected readonly filesystem: FileSystem;
@@ -81,11 +84,14 @@ export class SmartHomeEditorCommandContribution implements CommandContribution {
     protected async deployApp(uris: URI[]): Promise<void> {
         new Promise(() => {
             uris.forEach(uri => {
-                this.filesystem.copy(
+                const fileStat = this.filesystem.copy(
                     uri.toString(),
                     "file:///usr/local/addons/essh/.essh_store/" + uri.displayName,
                     { overwrite: true, recursive: true }
-                )
+                );
+                fileStat.then(
+                    () => this.messageService.info(`${uri.displayName} was successfully deployed to ${uri}.`),
+                    err => this.messageService.error(`${uri.displayName} could not be deployed: ${err}`));
             })
             null
         })
