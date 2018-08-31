@@ -24,45 +24,6 @@ module.exports = class extends Generator {
     this.log('Destination root:', this.destinationRoot());
   }
 
-  // prompting() {
-  //   // Have Yeoman greet the user.
-  //   this.log(
-  //     yosay(`Welcome to the ${chalk.red('Smart Home App')} generator!`)
-  //   );
-
-  //   const prompts = [
-  //     {
-  //       type: 'input',
-  //       name: 'appNameSpace',
-  //       message: 'App Name Space defines as a valid Java package name',
-  //       default: 'myapp'
-  //     },
-  //     {
-  //       type: 'input',
-  //       name: 'appName',
-  //       message: 'App Name',
-  //       default: 'MyApp'
-  //     },
-  //     {
-  //       type: 'input',
-  //       name: 'appDescription',
-  //       message: 'App Description',
-  //       default: 'App Description'
-  //     },
-  //     {
-  //       type: 'input',
-  //       name: 'authorName',
-  //       message: 'Author\'s Name',
-  //       default: 'Anonymous'
-  //     }
-  //   ];
-
-  //   return this.prompt(prompts).then(props => {
-  //     // To access props later use this.options.someAnswer;
-  //     this.options = props;
-  //   });
-  // }
-
   writing() {
     this.log('Recorded user input:');
     this.log('appNameSpace', this.options.appNameSpace);
