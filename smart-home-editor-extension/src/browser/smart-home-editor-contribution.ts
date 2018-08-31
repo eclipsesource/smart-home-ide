@@ -7,6 +7,7 @@ import { Workspace } from "@theia/languages/lib/common";
 import { IYoServer, ScaffoldingOptions } from "../common/scaffolding-protocol";
 import { ScaffoldingDialog } from "./scaffolding-dialog";
 import { SmartHomeMenus } from "../common/smart-home-menu";
+import { NAVIGATOR_CONTEXT_MENU } from "@theia/navigator/lib/browser/navigator-contribution";
 
 export { SmartHomeMenus } from "../common/smart-home-menu"; 
 
@@ -110,6 +111,11 @@ export class SmartHomeEditorMenuContribution implements MenuContribution {
         menus.registerMenuAction(SmartHomeMenus.SMART_HOME, {
             commandId: DeployToEditorCommand.id,
             label: DeployToEditorCommand.label
+        });
+        menus.registerMenuAction(NAVIGATOR_CONTEXT_MENU, {
+            commandId: DeployToEditorCommand.id,
+            label: DeployToEditorCommand.label,
+            order: 'zz' // Should be the last
         });
         menus.registerMenuAction(SmartHomeMenus.SMART_HOME, {
             commandId: ScaffoldingCommand.id,
