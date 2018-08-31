@@ -3,12 +3,12 @@ import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegist
 import { UriAwareCommandHandler, UriCommandHandler } from "@theia/core/lib/common/uri-command-handler";
 import URI from '@theia/core/lib/common/uri';
 import { FileSystem } from "@theia/filesystem/lib/common/filesystem";
-import { Workspace } from "@theia/languages/lib/common";
 import { IYoServer, ScaffoldingOptions } from "../common/scaffolding-protocol";
 import { ScaffoldingDialog } from "./scaffolding-dialog";
 import { SmartHomeMenus } from "../common/smart-home-menu";
-
-export { SmartHomeMenus } from "../common/smart-home-menu"; 
+import { WorkspaceService } from "@theia/workspace/lib/browser/workspace-service";
+import *  as _ from 'lodash';
+export { SmartHomeMenus } from "../common/smart-home-menu";
 
 export const DeployToEditorCommand = {
     id: 'SmartHomeEditor.deploy.command',
@@ -32,8 +32,8 @@ export class SmartHomeEditorCommandContribution implements CommandContribution {
     @inject(IYoServer)
     protected readonly yoServer: IYoServer;
 
-    @inject(Workspace)
-    protected readonly workspace: Workspace;
+    @inject(WorkspaceService)
+    protected readonly workspaceService: WorkspaceService;
 
     registerCommands(registry: CommandRegistry): void {
         const handler = new UriAwareCommandHandler<URI[]>(this.selectionService, this.deployHandler(), { multi: true });
@@ -44,19 +44,29 @@ export class SmartHomeEditorCommandContribution implements CommandContribution {
     protected scaffoldingHandler() {
         return {
             execute: () => {
-                
-                const dialog = new ScaffoldingDialog();
-                dialog.open().then(result => {
-                    const options: ScaffoldingOptions = {
-                        appName: result.appName,
-                        appDescription: result.appDescription,
-                        appNameSpace: result.appNameSpace,
-                        authorName: result.authorName,
-                        destinationPath: this.workspace.rootPath
-                    };
-                    this.yoServer.requestYo(options);
 
+                this.workspaceService.roots.then(roots => {
+                    const workspaceLocation = new URL(roots[0].uri).pathname;
+
+                    if (_.isEmpty(workspaceLocation)) {
+                        console.error("No workspace open"); // TODO: use message service
+                        return;
+                    }
+
+                    const dialog = new ScaffoldingDialog();
+                    dialog.open().then(result => {
+                        const options: ScaffoldingOptions = {
+                            appName: result.appName,
+                            appDescription: result.appDescription,
+                            appNameSpace: result.appNameSpace,
+                            authorName: result.authorName,
+                            destinationPath: workspaceLocation
+                        };
+                        this.yoServer.requestYo(options);
+
+                    });
                 });
+
             }
         }
     }
