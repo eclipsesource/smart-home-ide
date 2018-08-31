@@ -10,15 +10,17 @@
   ],
   "dependencies": {
     "@jsonforms/material-renderers": "^2.0.8",
-    "@jsonforms/material-tree-renderer": "^2.0.9",
+    "@jsonforms/material-tree-renderer": "^2.0.11",
+    "@material-ui/icons": "^3.0.1",
     "@theia/core": "latest",
+    "@theia/java": "latest",
+    "json-refs": "^3.0.9",
     "lodash": "^4.17.10",
     "react-redux": "^5.0.7",
+    "readline": "^1.3.0",
     "recompose": "^0.28.2",
-    "@theia/java": "latest",
-    "theia-tree-editor": "https://github.com/eclipsesource/theia-tree-editor.git#experimental",
-    "yeoman-environment": "^2.3.3",
-    "readline": "^1.3.0"
+    "theia-tree-editor": "https://github.com/eclipsesource/theia-tree-editor.git#master",
+    "yeoman-environment": "^2.3.3"
   },
   "devDependencies": {
     "rimraf": "latest",

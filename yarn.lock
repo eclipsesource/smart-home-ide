@@ -64,6 +64,12 @@
   version "7.0.0-beta.51"
   resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.0.0-beta.51.tgz#27cec2df409df60af58270ed8f6aa55409ea86f6"
 
+"@babel/runtime@7.0.0", "@babel/runtime@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.0.0.tgz#adeb78fedfc855aa05bc041640f3f6f98e85424c"
+  dependencies:
+    regenerator-runtime "^0.12.0"
+
 "@babel/runtime@7.0.0-beta.42":
   version "7.0.0-beta.42"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.0.0-beta.42.tgz#352e40c92e0460d3e82f49bd7e79f6cda76f919f"
@@ -116,8 +122,8 @@
     to-fast-properties "^2.0.0"
 
 "@jsonforms/core@^2.0.8":
-  version "2.0.8"
-  resolved "https://registry.yarnpkg.com/@jsonforms/core/-/core-2.0.8.tgz#d9695bff803011b35e4ed2eef2a5f4324ddafa9f"
+  version "2.0.10"
+  resolved "https://registry.yarnpkg.com/@jsonforms/core/-/core-2.0.10.tgz#85fbd0e0c07633badbcb58453392158fda277cfe"
   dependencies:
     ajv "^6.4.0"
     json-refs "^3.0.4"
@@ -139,9 +145,9 @@
     react "^16.3.2"
     redux "^3.7.2"
 
-"@jsonforms/material-tree-renderer@^2.0.9":
-  version "2.0.9"
-  resolved "https://registry.yarnpkg.com/@jsonforms/material-tree-renderer/-/material-tree-renderer-2.0.9.tgz#afd9f27985894f9f559c976f515a975995d2f501"
+"@jsonforms/material-tree-renderer@^2.0.11":
+  version "2.0.11"
+  resolved "https://registry.yarnpkg.com/@jsonforms/material-tree-renderer/-/material-tree-renderer-2.0.11.tgz#03adac37d2268092b449a40b254536d42c81fb43"
   dependencies:
     "@jsonforms/core" "^2.0.8"
     "@jsonforms/react" "^2.0.8"
@@ -206,6 +212,13 @@
   dependencies:
     "@babel/runtime" "7.0.0-beta.42"
     recompose "^0.26.0 || ^0.27.0"
+
+"@material-ui/icons@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@material-ui/icons/-/icons-3.0.1.tgz#671fb3d04dcaf9351dbbd2bf82ae2ae72e3d93cd"
+  dependencies:
+    "@babel/runtime" "7.0.0"
+    recompose "^0.29.0"
 
 "@material-ui/lab@^1.0.0-alpha.5":
   version "1.0.0-alpha.12"
@@ -719,12 +732,12 @@
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
 
 "@types/node@*":
-  version "10.9.3"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.9.3.tgz#85f288502503ade0b3bfc049fe1777b05d0327d5"
+  version "10.9.4"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.9.4.tgz#0f4cb2dc7c1de6096055357f70179043c33e9897"
 
 "@types/node@^8.0.24":
-  version "8.10.28"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.10.28.tgz#03bf70dd7f1de7826251331ce57beddf7f9dd253"
+  version "8.10.29"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.10.29.tgz#b3a13b58dd7b0682bf1b42022bef4a5a9718f687"
 
 "@types/prop-types@*":
   version "15.5.5"
@@ -5911,7 +5924,7 @@ json-parse-better-errors@^1.0.1, json-parse-better-errors@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/json-parse-better-errors/-/json-parse-better-errors-1.0.2.tgz#bb867cfb3450e69107c131d1c514bab3dc8bcaa9"
 
-json-refs@^3.0.4:
+json-refs@^3.0.4, json-refs@^3.0.9:
   version "3.0.9"
   resolved "https://registry.yarnpkg.com/json-refs/-/json-refs-3.0.9.tgz#4980fff616cccb2a35d75b781813857f3ace6264"
   dependencies:
@@ -8473,6 +8486,17 @@ recompose@^0.28.0, recompose@^0.28.2:
     react-lifecycles-compat "^3.0.2"
     symbol-observable "^1.0.4"
 
+recompose@^0.29.0:
+  version "0.29.0"
+  resolved "https://registry.yarnpkg.com/recompose/-/recompose-0.29.0.tgz#f1a4e20d5f24d6ef1440f83924e821de0b1bccef"
+  dependencies:
+    "@babel/runtime" "^7.0.0"
+    change-emitter "^0.1.2"
+    fbjs "^0.8.1"
+    hoist-non-react-statics "^2.3.1"
+    react-lifecycles-compat "^3.0.2"
+    symbol-observable "^1.0.4"
+
 reconnecting-websocket@^3.0.7:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/reconnecting-websocket/-/reconnecting-websocket-3.2.2.tgz#8097514e926e9855e03c39e76efa2e3d1f371bee"
@@ -8832,14 +8856,14 @@ rxjs@5.4.3:
     symbol-observable "^1.0.1"
 
 rxjs@^5.0.0-beta.11, rxjs@^5.1.1, rxjs@^5.4.2, rxjs@^5.5.2:
-  version "5.5.11"
-  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.5.11.tgz#f733027ca43e3bec6b994473be4ab98ad43ced87"
+  version "5.5.12"
+  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.5.12.tgz#6fa61b8a77c3d793dbaf270bee2f43f652d741cc"
   dependencies:
     symbol-observable "1.0.1"
 
 rxjs@^6.1.0:
-  version "6.2.2"
-  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.2.2.tgz#eb75fa3c186ff5289907d06483a77884586e1cf9"
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.3.0.tgz#e55b05ad4bdf351db4b45756638dfa368260a8a3"
   dependencies:
     tslib "^1.9.0"
 
@@ -9633,12 +9657,12 @@ textextensions@2:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/textextensions/-/textextensions-2.2.0.tgz#38ac676151285b658654581987a0ce1a4490d286"
 
-"theia-tree-editor@https://github.com/eclipsesource/theia-tree-editor.git#experimental":
-  version "0.0.5"
-  resolved "https://github.com/eclipsesource/theia-tree-editor.git#5a19be8565b55bdb981cdbbd34b6d1cb4ce11585"
+"theia-tree-editor@https://github.com/eclipsesource/theia-tree-editor.git#master":
+  version "0.0.6"
+  resolved "https://github.com/eclipsesource/theia-tree-editor.git#8ad5e9e274ed43aa5a4b9af08ee1663f7899eb8c"
   dependencies:
     "@jsonforms/core" "^2.0.8"
-    "@jsonforms/material-tree-renderer" "^2.0.9"
+    "@jsonforms/material-tree-renderer" "^2.0.11"
     "@theia/core" latest
     "@theia/editor" latest
     "@theia/filesystem" latest
