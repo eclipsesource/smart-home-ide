@@ -12,7 +12,7 @@ export const createSmartAppProject = (opts: ScaffoldingOptions) => {
 
   // Run the smart-home-app generator and hand in the options
   env.lookup(() => {
-    env.run(['smart-home-app', options.appName, options.appNameSpace, options.authorName, options.destinationPath], options, err => {
+    env.run(['smart-home-app', options.appName, options.appNameSpace, options.appDescription, options.authorName, options.destinationPath], options, err => {
       console.log('smart-home-app generator done.');
     })
   });
