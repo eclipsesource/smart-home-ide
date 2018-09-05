@@ -388,7 +388,7 @@
   dependencies:
     "@theia/application-manager" "^0.3.14"
 
-"@theia/core@^0.3.14", "@theia/core@latest":
+"@theia/core@^0.3.13", "@theia/core@^0.3.14", "@theia/core@latest":
   version "0.3.14"
   resolved "https://registry.yarnpkg.com/@theia/core/-/core-0.3.14.tgz#a3edb38e7c47b60827690db2073aead60a62a00d"
   dependencies:
@@ -429,7 +429,7 @@
     ws "^3.0.0"
     yargs "^9.0.1"
 
-"@theia/editor@^0.3.14", "@theia/editor@latest":
+"@theia/editor@^0.3.13", "@theia/editor@^0.3.14", "@theia/editor@latest":
   version "0.3.14"
   resolved "https://registry.yarnpkg.com/@theia/editor/-/editor-0.3.14.tgz#461c6db9966c834b928b5bfc3722ae60ab52a092"
   dependencies:
@@ -439,7 +439,7 @@
     "@types/base64-arraybuffer" "0.1.0"
     base64-arraybuffer "^0.1.5"
 
-"@theia/filesystem@^0.3.14", "@theia/filesystem@latest":
+"@theia/filesystem@^0.3.13", "@theia/filesystem@^0.3.14", "@theia/filesystem@latest":
   version "0.3.14"
   resolved "https://registry.yarnpkg.com/@theia/filesystem/-/filesystem-0.3.14.tgz#4e9353e1a69a27acc0f553f6d8ad6ebbf0224fd1"
   dependencies:
@@ -8749,7 +8749,7 @@ right-align@^0.1.1:
   dependencies:
     align-text "^0.1.1"
 
-rimraf@2, rimraf@^2.2.8, rimraf@^2.4.4, rimraf@^2.5.4, rimraf@^2.6.1, rimraf@^2.6.2:
+rimraf@2, rimraf@^2.2.8, rimraf@^2.4.4, rimraf@^2.5.4, rimraf@^2.6.1, rimraf@^2.6.2, rimraf@latest:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.6.2.tgz#2ed8150d24a16ea8651e6d6ef0f47c4158ce7a36"
   dependencies:
@@ -9625,15 +9625,15 @@ textextensions@2:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/textextensions/-/textextensions-2.2.0.tgz#38ac676151285b658654581987a0ce1a4490d286"
 
-"theia-tree-editor@https://github.com/mathansen/theia-tree-editor.git#master":
+"theia-tree-editor@https://github.com/eneufeld/theia-tree-editor.git#master":
   version "0.0.6"
-  resolved "https://github.com/mathansen/theia-tree-editor.git#af3576db813d03abfa749d9185f9f63c6a8e7857"
+  resolved "https://github.com/eneufeld/theia-tree-editor.git#917abe979d9d01dfca803fddf6ea4bfebbde90fe"
   dependencies:
     "@jsonforms/core" "^2.0.8"
     "@jsonforms/material-tree-renderer" "^2.0.11"
-    "@theia/core" "^0.3.14"
-    "@theia/editor" "^0.3.14"
-    "@theia/filesystem" "^0.3.14"
+    "@theia/core" "^0.3.13"
+    "@theia/editor" "^0.3.13"
+    "@theia/filesystem" "^0.3.13"
     react "^16.4.0"
     react-dom "^16.4.0"
     react-redux "^4.4.9"

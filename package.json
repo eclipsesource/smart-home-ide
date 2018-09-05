@@ -12,6 +12,7 @@
   "workspaces": [
     "generator-smart-home-app",
     "smart-home-editor-extension",
+    "junit",
     "browser-app",
     "electron-app"
   ]

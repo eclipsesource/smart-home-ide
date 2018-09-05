@@ -17,7 +17,8 @@
     "@theia/typescript": "latest",
     "@theia/messages": "latest",
     "@theia/mini-browser": "latest",
-    "smart-home-editor-extension": "0.0.0"
+    "smart-home-editor-extension": "0.0.0",
+    "junit":"0.0.0"
   },
   "devDependencies": {
     "@theia/cli": "latest"

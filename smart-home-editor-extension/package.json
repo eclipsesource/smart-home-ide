@@ -28,7 +28,7 @@
     "react-redux": "^5.0.7",
     "readline": "^1.3.0",
     "recompose": "^0.28.2",
-    "theia-tree-editor": "https://github.com/mathansen/theia-tree-editor.git#master",
+    "theia-tree-editor": "https://github.com/eneufeld/theia-tree-editor.git#master",
     "yeoman-environment": "^2.3.3"
   },
   "devDependencies": {
