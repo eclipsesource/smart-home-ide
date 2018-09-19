@@ -1,9 +1,9 @@
-import { CommonMenus } from '@theia/core/lib/browser';
 import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry, SelectionService } from '@theia/core/lib/common';
 import URI from '@theia/core/lib/common/uri';
 import { SingleUriCommandHandler, UriAwareCommandHandler } from '@theia/core/lib/common/uri-command-handler';
 import { inject, injectable } from 'inversify';
 import { JUnitRunService } from './junit-run-service';
+import { NAVIGATOR_CONTEXT_MENU } from "@theia/navigator/lib/browser/navigator-contribution";
 
 const JUnitRunCommand = {
     id: 'junit.run.command',
@@ -35,8 +35,9 @@ class JUnitRunCommandHandler implements SingleUriCommandHandler {
 export class JunitMenuContribution implements MenuContribution {
 
     registerMenus(menus: MenuModelRegistry): void {
-        menus.registerMenuAction(CommonMenus.EDIT_FIND, {
-            commandId: JUnitRunCommand.id
+        // Add to context menu in finder
+        menus.registerMenuAction(NAVIGATOR_CONTEXT_MENU, {
+            commandId: JUnitRunCommand.id,
         });
     }
 }
