@@ -9625,9 +9625,9 @@ textextensions@2:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/textextensions/-/textextensions-2.2.0.tgz#38ac676151285b658654581987a0ce1a4490d286"
 
-"theia-tree-editor@https://github.com/eneufeld/theia-tree-editor.git#master":
+"theia-tree-editor@https://github.com/eclipsesource/theia-tree-editor.git#master":
   version "0.0.6"
-  resolved "https://github.com/eneufeld/theia-tree-editor.git#917abe979d9d01dfca803fddf6ea4bfebbde90fe"
+  resolved "https://github.com/eclipsesource/theia-tree-editor.git#93dc85a9ece33c06a6105fcf59e258ede5ce8376"
   dependencies:
     "@jsonforms/core" "^2.0.8"
     "@jsonforms/material-tree-renderer" "^2.0.11"
