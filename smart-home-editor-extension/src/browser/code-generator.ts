@@ -31,7 +31,7 @@ export class CodeGenerator {
                 .then(response => {
                     response.text().then(java => {
                         const javaURI = new URI(this.workspace.rootUri + "/src/" + className.replace(/\./g, "/") + ".java")
-                        this.setFileContent(javaURI, java, true)
+                        this.setFileContent(javaURI, java)
                     },
                         () => this.messageService.error('Could not Generate Code.'))
                 },
@@ -40,9 +40,9 @@ export class CodeGenerator {
         }
     }
 
-    async setFileContent(fileUri: URI, content: string, overwrite: boolean): Promise<void> {
+    async setFileContent(fileUri: URI, content: string): Promise<void> {
         const fileStat = await this.fileSystem.getFileStat(fileUri.toString());
-        if (fileStat && overwrite) {
+        if (fileStat) {
             this.fileSystem.updateContent(fileStat, [{ text: content }]).then(() => Promise.resolve());
             console.log("Update content of file '" + fileUri + "'.");
         } else {

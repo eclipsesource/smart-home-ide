@@ -66,7 +66,7 @@ export default new ContainerModule(bind => {
   bind(MenuContribution).to(SmartHomeEditorMenuContribution);
 
   bind(OpenHandler).to(JUnitResultOpenHandler)
-  bind(CodeGenerator).to(CodeGenerator)
+  bind(CodeGenerator).toSelf()
   bind<WidgetFactory>(WidgetFactory).toDynamicValue(ctx => ({
     id: 'theia-tree-editor',
     async createWidget(uri: string): Promise<TreeEditorWidget> {
