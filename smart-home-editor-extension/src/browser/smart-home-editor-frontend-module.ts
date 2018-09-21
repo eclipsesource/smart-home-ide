@@ -9,7 +9,7 @@ import {
   MessageService
 } from "@theia/core/lib/common";
 import { ContainerModule, injectable } from "inversify";
-import { WidgetFactory, OpenHandler, WebSocketConnectionProvider } from "@theia/core/lib/browser";
+import { WidgetFactory, OpenHandler, WebSocketConnectionProvider, NavigatableWidgetOptions } from "@theia/core/lib/browser";
 import { ResourceProvider, Resource } from "@theia/core/lib/common";
 import { ResourceSaveable, TreeEditorWidget, TreeEditorWidgetOptions } from "theia-tree-editor";
 import URI from "@theia/core/lib/common/uri";
@@ -23,20 +23,25 @@ import { SCMCommandsContribution, SCMTasksContribution, SCMMenuActionsContributi
 import { TaskContribution } from '@theia/task/lib/browser';
 
 export * from '../common/smart-home-menu';
+import { CodeGenerator } from './code-generator';
 
 import '../../src/browser/style/index.css';
 import { SmartHomeMenuContribution } from '../common/smart-home-menu';
 const LIGHT_THEME_ID = "light"
 
 class MyResourceSaveable extends ResourceSaveable {
-  constructor(resource: Resource, getData: () => any, private messageService: MessageService) {
+  constructor(resource: Resource, getData: () => any, private messageService: MessageService, private codeGenerator: CodeGenerator) {
     super(resource, getData);
   }
   onSave(data: any) {
     return postRequest(window.location.protocol + '//' + window.location.hostname + ':9091/services/convert/json',
       JSON.stringify(data),
       'application/json')
-      .then(response => response.text(), () => this.messageService.error('Save was not possible.'))
+      .then(response => {
+        const appContents = response.text()
+        appContents.then(app => this.codeGenerator.generateCode(app, data.className))
+        return appContents
+      }, () => this.messageService.error('Save was not possible.'))
   }
 }
 
@@ -61,12 +66,15 @@ export default new ContainerModule(bind => {
   bind(MenuContribution).to(SmartHomeEditorMenuContribution);
 
   bind(OpenHandler).to(JUnitResultOpenHandler)
+  bind(CodeGenerator).toSelf()
   bind<WidgetFactory>(WidgetFactory).toDynamicValue(ctx => ({
     id: 'theia-tree-editor',
-    async createWidget(uri: string): Promise<TreeEditorWidget> {
+    async createWidget(options: NavigatableWidgetOptions ): Promise<TreeEditorWidget> {
       const { container } = ctx;
-      const resource = await container.get<ResourceProvider>(ResourceProvider)(new URI(uri));
+      const uri = new URI(options.uri);
+      const resource = await container.get<ResourceProvider>(ResourceProvider)(uri);
       const messageService = await container.get<MessageService>(MessageService)
+      const codeGenerator = await container.get<CodeGenerator>(CodeGenerator)
       const store = await initStore();
       const child = container.createChild();
       child.bind<TreeEditorWidgetOptions>(TreeEditorWidgetOptions)
@@ -74,8 +82,8 @@ export default new ContainerModule(bind => {
           resource,
           store,
           EditorComponent: App,
-          fileName: new URI(uri).path.base,
-          saveable: new MyResourceSaveable(resource, () => getData(store.getState()), messageService),
+          fileName: uri.path.base,
+          saveable: new MyResourceSaveable(resource, () => getData(store.getState()), messageService, codeGenerator),
           onResourceLoad: contentAsString => {
             return postRequest(
               window.location.protocol + '//' + window.location.hostname + ':9091/services/convert/xmi',
@@ -93,12 +101,12 @@ export default new ContainerModule(bind => {
     bind(serviceIdentifier).toService(SmartHomeTreeEditorContribution)
   );
 
-    bind(SmartHomeYoClient).toSelf()
-    bind(IYoServer).toDynamicValue(ctx => {
-        const connection = ctx.container.get(WebSocketConnectionProvider);
-        const client = ctx.container.get(SmartHomeYoClient)
-        return connection.createProxy<IYoServer>(yoPath, client);
-    }).inSingletonScope();
+  bind(SmartHomeYoClient).toSelf()
+  bind(IYoServer).toDynamicValue(ctx => {
+    const connection = ctx.container.get(WebSocketConnectionProvider);
+    const client = ctx.container.get(SmartHomeYoClient)
+    return connection.createProxy<IYoServer>(yoPath, client);
+  }).inSingletonScope();
 
     // SCM
     bind(CommandContribution).to(SCMCommandsContribution);
