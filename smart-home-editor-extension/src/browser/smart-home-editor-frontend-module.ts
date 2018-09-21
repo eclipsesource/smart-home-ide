@@ -9,7 +9,7 @@ import {
   MessageService
 } from "@theia/core/lib/common";
 import { ContainerModule, injectable } from "inversify";
-import { WidgetFactory, OpenHandler, WebSocketConnectionProvider } from "@theia/core/lib/browser";
+import { WidgetFactory, OpenHandler, WebSocketConnectionProvider, NavigatableWidgetOptions } from "@theia/core/lib/browser";
 import { ResourceProvider, Resource } from "@theia/core/lib/common";
 import { ResourceSaveable, TreeEditorWidget, TreeEditorWidgetOptions } from "theia-tree-editor";
 import URI from "@theia/core/lib/common/uri";
@@ -69,9 +69,10 @@ export default new ContainerModule(bind => {
   bind(CodeGenerator).toSelf()
   bind<WidgetFactory>(WidgetFactory).toDynamicValue(ctx => ({
     id: 'theia-tree-editor',
-    async createWidget(uri: string): Promise<TreeEditorWidget> {
+    async createWidget(options: NavigatableWidgetOptions ): Promise<TreeEditorWidget> {
       const { container } = ctx;
-      const resource = await container.get<ResourceProvider>(ResourceProvider)(new URI(uri));
+      const uri = new URI(options.uri);
+      const resource = await container.get<ResourceProvider>(ResourceProvider)(uri);
       const messageService = await container.get<MessageService>(MessageService)
       const codeGenerator = await container.get<CodeGenerator>(CodeGenerator)
       const store = await initStore();
@@ -81,7 +82,7 @@ export default new ContainerModule(bind => {
           resource,
           store,
           EditorComponent: App,
-          fileName: new URI(uri).path.base,
+          fileName: uri.path.base,
           saveable: new MyResourceSaveable(resource, () => getData(store.getState()), messageService, codeGenerator),
           onResourceLoad: contentAsString => {
             return postRequest(

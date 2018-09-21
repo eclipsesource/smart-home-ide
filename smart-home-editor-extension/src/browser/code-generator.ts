@@ -1,15 +1,16 @@
 import { injectable, inject } from "inversify";
 import URI from "@theia/core/lib/common/uri";
 import { FileSystem } from "@theia/filesystem/lib/common/filesystem";
-import { Workspace } from "@theia/languages/lib/common";
 import { MessageService } from "@theia/core";
+import { WorkspaceService } from "@theia/workspace/lib/browser";
+import * as _ from 'lodash';
 
 @injectable()
 export class CodeGenerator {
 
     constructor(
         @inject(FileSystem) protected readonly fileSystem: FileSystem,
-        @inject(Workspace) protected readonly workspace: Workspace,
+        @inject(WorkspaceService) protected readonly workspaceService: WorkspaceService,
         @inject(MessageService) protected messageService: MessageService
     ) {
     }
@@ -30,8 +31,17 @@ export class CodeGenerator {
                 contentAsString, 'application/xml')
                 .then(response => {
                     response.text().then(java => {
-                        const javaURI = new URI(this.workspace.rootUri + "/src/" + className.replace(/\./g, "/") + ".java")
-                        this.setFileContent(javaURI, java)
+                        this.workspaceService.roots.then(roots =>{
+                            const workspaceLocation = new URL(roots[0].uri).pathname;
+
+                            if (_.isEmpty(workspaceLocation)) {
+                                this.messageService.error('Could not Generate Code because no workspace is open.')
+                                return;
+                            }
+                            const javaURI = new URI(workspaceLocation + "/src/" + className.replace(/\./g, "/") + ".java")
+                            this.setFileContent(javaURI, java)
+                        }, () => this.messageService.error('Could not Generate Code.'))
+
                     },
                         () => this.messageService.error('Could not Generate Code.'))
                 },
