@@ -1,6 +1,6 @@
 import { TheiaTreeEditorContribution } from "theia-tree-editor";
 import { inject } from "inversify";
-import {WidgetManager} from "@theia/core/lib/browser";
+import { WidgetManager, WidgetOpenerOptions } from "@theia/core/lib/browser";
 import { MessageService, SelectionService } from "@theia/core";
 import { FileDownloadService } from "@theia/filesystem/lib/browser/download/file-download-service";
 import URI from '@theia/core/lib/common/uri';
@@ -22,4 +22,16 @@ export class SmartHomeTreeEditorContribution extends TheiaTreeEditorContribution
         }
         return 0;
       }
+
+      // TODO remove this when TreeEditorWidget is a navigatible widget
+      createWidgetOptions(uri: URI, options?: WidgetOpenerOptions): URIWidgetOpenerOptions {
+        return {
+          uri:uri.withoutFragment().toString()
+        }
+      }
+}
+
+// TODO remove this when TreeEditorWidget is a navigatible widget
+interface URIWidgetOpenerOptions extends WidgetOpenerOptions{
+  uri: string
 }
