@@ -29,19 +29,22 @@ export const labels = {
 export const modelMapping = {
 	attribute: 'type',
  	mapping: {
-    appdescription: '#appdescription',
-    requiredStatesItem: '#requiredStatesItem',
-		providedStateItem: '#providedStateItem',
-		requiredActor: '#requiredActors',
-    requiredParameter: '#requiredParameters',
-    state: '#state',
-    booleanState: '#booleanState',
-    dateTimeState: '#dateTimeState',
-    numberState: '#numberState',
-    heatingActor: '#heatingActor',
-    lockUnlockActor: '#lockUnlockActor',
-    onOffActor: '#onOffActor',
-    playPauseActor: '#playPauseActor'
+    // appdescription: '#appdescription',
+    // requiredStatesItem: '#requiredStatesItem',
+    // providedStateItem: '#providedStateItem',
+    // requiredActor: '#requiredActors',
+    // requiredParameter: '#requiredParameters',
+    // state: '#state',
+    // booleanState: '#booleanState',
+    // dateTimeState: '#dateTimeState',
+    // numberState: '#numberState',
+    // heatingActor: '#heatingActor',
+    // lockUnlockActor: '#lockUnlockActor',
+    // onOffActor: '#onOffActor',
+    // playPauseActor: '#playPauseActor',
+    Item: '#state',
+    Virtual: '#state',
+    Framework: '#state'
  	}	
 };
 

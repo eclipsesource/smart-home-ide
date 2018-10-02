@@ -47,6 +47,83 @@ export const initStore = async() => {
   );
 
   store.dispatch(Actions.init({}, schema, uischema));
+  store.dispatch(
+    Actions.registerDefaultData(
+        'properties.providedState.items.anyOf.0.anyOf.0',
+        {
+          "eClass" : "http://eclipsesource.com/smarthome/core/model/appdescription#//BooleanState",
+          "id" : "isHome",
+          "description" : "Indicates that a person is at home (true).",
+          "type" : "Virtual",
+          "name" : "Is Home",
+          "tags" : [ "Button", "Remote" ]
+        }
+    )
+  );
+
+  store.dispatch(
+    Actions.registerDefaultData(
+        'properties.requiredStates.items.anyOf.0.anyOf.0',
+        {
+          "eClass" : "http://eclipsesource.com/smarthome/core/model/appdescription#//BooleanState",
+          "id" : "isHome",
+          "description" : "Indicates that a person is at home (true).",
+          "type" : "Virtual",
+          "name" : "Is Home",
+          "tags" : [ "Button", "Remote" ]
+        }
+    )
+  );
+  store.dispatch(
+    Actions.registerDefaultData(
+        'properties.requiredStates.items.anyOf.1.anyOf.0',
+        {
+          "eClass" : "http://eclipsesource.com/smarthome/core/model/appdescription#//BooleanState",
+          "id" : "remote",
+          "description" : "Represents remote controls that can be on (true) or off (false).",
+          "name" : "Remote Control(s)",
+          "tags" : [ "Button", "Remote" ]
+        }
+    )
+  );
+  store.dispatch(
+    Actions.registerDefaultData(
+        'properties.requiredStates.items.anyOf.2.anyOf.0',
+        {
+          "eClass" : "http://eclipsesource.com/smarthome/core/model/appdescription#//BooleanState",
+          "id" : "window",
+          "description" : "Represents windows that can be open (true) or shut (false).",
+          "name" : "Window(s)",
+          "tags" : [ "Window" ]
+        }
+    )
+  );
+
+  store.dispatch(
+    Actions.registerDefaultData(
+        'properties.requiredActors.items.anyOf.0.anyOf.0',
+        {
+          "eClass" : "http://eclipsesource.com/smarthome/core/model/appdescription#//OnOffActor",
+          "id" : "powerSupply",
+          "description" : "Represents a power supply that can be turned on (true) or off (false).",
+          "name" : "Power Supply",
+          "multiple" : true,
+          "tags" : [ "PowerOutlet" ]
+        }
+    )
+  );
+  store.dispatch(
+    Actions.registerDefaultData(
+        'properties.requiredActors.items.anyOf.1.anyOf.0',
+        {
+          "eClass" : "http://eclipsesource.com/smarthome/core/model/appdescription#//LockUnlockActor",
+          "id" : "door",
+          "description" : "Represents doors that can be unlocked (true) or locked (false).",
+          "name" : "Door(s)",
+          "tags" : [ "Door", "Lock" ]
+        }
+    )
+  );
 
   return store;
 };
@@ -68,6 +145,22 @@ const dropLastAnyOfFromPath = (schemaPath: string): string => {
 
 const schemaLabelProvider: SchemaLabelProvider = (jsonSchema: JsonSchema, schemaPath: string) => {
 
+  // default data hack
+  switch(schemaPath) {
+    case 'properties.providedState.items.anyOf.0.anyOf.0':
+    case 'properties.requiredStates.items.anyOf.0.anyOf.0':
+      return 'Is Home'
+    case 'properties.requiredStates.items.anyOf.1.anyOf.0':
+      return 'Remote Control(s)'
+    case 'properties.requiredStates.items.anyOf.2.anyOf.0':
+      return 'Window(s)'
+    case 'properties.requiredActors.items.anyOf.0.anyOf.0':
+      return 'Power Supply'
+    case 'properties.requiredActors.items.anyOf.1.anyOf.0':
+      return 'Door(s)'
+  }
+
+  // generic fall back
   if (schemaPath.includes('requiredStates') || schemaPath.includes('providedState')) {
     const resolved = resolveData(resolvedSchema, dropLastAnyOfFromPath(schemaPath));
     if (resolved != undefined) {
@@ -78,6 +171,8 @@ const schemaLabelProvider: SchemaLabelProvider = (jsonSchema: JsonSchema, schema
           return 'Number State';
         case '#dateTimeState':
           return 'Datetime State';
+        case '#emptyState':
+          return 'New State';
         default:
           return 'Unknown State';
       }
@@ -94,6 +189,8 @@ const schemaLabelProvider: SchemaLabelProvider = (jsonSchema: JsonSchema, schema
           return 'On/Off Actor';
         case '#playPauseActor':
           return 'Play/Pause Actor';
+        case '#emptyActor':
+          return 'New Actor';
         default:
           return 'Unknown Actor';
       }
@@ -108,6 +205,8 @@ const schemaLabelProvider: SchemaLabelProvider = (jsonSchema: JsonSchema, schema
           return 'Datetime Parameter';
         case '#numberParameter':
           return 'Number Parameter';
+        case '#emptyParameter':
+          return 'New Parameter';
         default:
           return 'Unknown Parameter';
       }

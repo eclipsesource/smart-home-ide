@@ -61,6 +61,13 @@ export default {
         { $ref: "#/definitions/state" }
       ]
     },
+    emptyState: {
+      $id: "#emptyState",
+      type: "object",
+      anyOf: [
+        { $ref: "#/definitions/state" }
+      ]
+    },
 
     //CONCRETE ACTORS
     actor: {
@@ -128,6 +135,13 @@ export default {
         { $ref: "#/definitions/actor" }
       ]
     },
+    emptyActor: {
+      $id: "#emptyActor",
+      type: "object",
+      anyOf: [
+        { $ref: "#/definitions/actor" }
+      ]
+    },
 
     // PARAMETERS
     parameter: {
@@ -168,6 +182,13 @@ export default {
       anyOf: [
         { $ref: "#/definitions/parameter" }
       ]
+    },
+    emptyParameter: {
+      $id: "#emptyParameter",
+      type: "object",
+      anyOf: [
+        { $ref: "#/definitions/parameter" }
+      ]
     }
   },
 
@@ -199,9 +220,10 @@ export default {
       type: "array",
       items: {
         anyOf: [
-          { $ref: "#/definitions/booleanState" },
-          { $ref: "#/definitions/dateTimeState" },
-          { $ref: "#/definitions/numberState" }
+          // { $ref: "#/definitions/booleanState" },
+          // { $ref: "#/definitions/dateTimeState" },
+          // { $ref: "#/definitions/numberState" },
+          { $ref: "#/definitions/emptyState" }
         ]
       }
     },
@@ -211,9 +233,12 @@ export default {
       type: "array",
       items: {
         anyOf: [
-          { $ref: "#/definitions/booleanState" },
-          { $ref: "#/definitions/dateTimeState" },
-          { $ref: "#/definitions/numberState" }
+          // { $ref: "#/definitions/booleanState" },
+          // { $ref: "#/definitions/dateTimeState" },
+          // { $ref: "#/definitions/numberState" },
+          { $ref: "#/definitions/emptyState" },
+          { $ref: "#/definitions/emptyState" },
+          { $ref: "#/definitions/emptyState" }
         ]
       }
     },
@@ -221,10 +246,12 @@ export default {
       type: "array",
       items: {
         anyOf: [
-          { $ref: "#/definitions/heatingActor" },
-          { $ref: "#/definitions/lockUnlockActor" },
-          { $ref: "#/definitions/onOffActor" },
-          { $ref: "#/definitions/playPauseActor" }
+          // { $ref: "#/definitions/heatingActor" },
+          // { $ref: "#/definitions/lockUnlockActor" },
+          // { $ref: "#/definitions/onOffActor" },
+          // { $ref: "#/definitions/playPauseActor" },
+          { $ref: "#/definitions/emptyActor" },
+          { $ref: "#/definitions/emptyActor" }
         ]
       }
     },
@@ -232,9 +259,10 @@ export default {
       type: "array",
       items: {
         anyOf: [
-          { $ref: "#/definitions/booleanParameter" },
-          { $ref: "#/definitions/dateTimeParameter" },
-          { $ref: "#/definitions/numberParameter" }
+          // { $ref: "#/definitions/booleanParameter" },
+          // { $ref: "#/definitions/dateTimeParameter" },
+          // { $ref: "#/definitions/numberParameter" },
+          { $ref: "#/definitions/emptyParameter" }
         ]
       }
     },
