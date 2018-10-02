@@ -63,7 +63,7 @@ const instanceLabelProvider: InstanceLabelProvider = (schema: JsonSchema, data: 
 
 const dropLastAnyOfFromPath = (schemaPath: string): string => {
   const lastAnyOfIndex = schemaPath.lastIndexOf('anyOf');
-  return schemaPath.substring(1, lastAnyOfIndex - 1);
+  return schemaPath.substring(0, lastAnyOfIndex - 1);
 }
 
 const schemaLabelProvider: SchemaLabelProvider = (jsonSchema: JsonSchema, schemaPath: string) => {

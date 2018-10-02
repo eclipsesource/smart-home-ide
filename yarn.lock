@@ -47,24 +47,24 @@
   dependencies:
     regenerator-runtime "^0.12.0"
 
-"@jsonforms/core@^2.0.8":
-  version "2.0.10"
-  resolved "https://registry.yarnpkg.com/@jsonforms/core/-/core-2.0.10.tgz#85fbd0e0c07633badbcb58453392158fda277cfe"
-  integrity sha512-JdKICyPHK2snUlAxnGd5REEa3dJGY3BBrFBBP0uA2Li0kG6cJmIZOQvrEPFPl2oL8LpERLzmxb2DcoLfNeNWZg==
+"@jsonforms/core@^2.0.12-rc.1":
+  version "2.0.12-rc.1"
+  resolved "https://registry.yarnpkg.com/@jsonforms/core/-/core-2.0.12-rc.1.tgz#0d1c914a3b6d600bcf5f604ea5609eb29235f9d3"
+  integrity sha512-/fDHVKwyjgkE1S+hGMq0myrX+XXJc/XDSkDNKUj990ILKo/bANKXKSLZMFcFNjuli4Iva8gylHNDMWdYrQ5hQQ==
   dependencies:
     ajv "^6.4.0"
-    json-refs "^3.0.4"
+    json-refs "^3.0.10"
     lodash "^4.17.4"
     redux "^3.7.2"
     uuid "^3.2.1"
 
-"@jsonforms/material-renderers@^2.0.8":
-  version "2.0.8"
-  resolved "https://registry.yarnpkg.com/@jsonforms/material-renderers/-/material-renderers-2.0.8.tgz#23be154a111eb8fd26a3835323b73d8360cd0c9d"
-  integrity sha512-ujrp4R4U3z1FxIQx/kE7sK6R1cE9jLDpvhxydYBFp/hNRdGUb0cuPl6PiZswJUuCoABfLq8QBS9/4PGIY/pdmA==
+"@jsonforms/material-renderers@^2.0.12-rc.1":
+  version "2.0.12-rc.1"
+  resolved "https://registry.yarnpkg.com/@jsonforms/material-renderers/-/material-renderers-2.0.12-rc.1.tgz#6da99a7fd51d59a704a0352a9666378a87e7986f"
+  integrity sha512-ce9TnpK2lO5WZfwRn9cXcHYgJF/B+xxWf80MQrsKIoXUv9P9stoFkW0JZs3KTYhUNVGjuyOGHekjIxn4LUnLkA==
   dependencies:
-    "@jsonforms/core" "^2.0.8"
-    "@jsonforms/react" "^2.0.8"
+    "@jsonforms/core" "^2.0.12-rc.1"
+    "@jsonforms/react" "^2.0.12-rc.1"
     "@material-ui/core" "^1.2.1"
     "@material-ui/icons" "^1.0.0"
     "@material-ui/lab" "^1.0.0-alpha.5"
@@ -73,17 +73,17 @@
     react "^16.3.2"
     redux "^3.7.2"
 
-"@jsonforms/material-tree-renderer@^2.0.11":
-  version "2.0.11"
-  resolved "https://registry.yarnpkg.com/@jsonforms/material-tree-renderer/-/material-tree-renderer-2.0.11.tgz#03adac37d2268092b449a40b254536d42c81fb43"
-  integrity sha512-aN/0rDLcmW10y3j+NJ0qWC1TE3mZGQu/DxBw/+V4B/pDueRod5Bo40mexzRkN5vAqOl16R6gbyjHIUfJefMK+Q==
+"@jsonforms/material-tree-renderer@^2.0.12-rc.1":
+  version "2.0.12-rc.1"
+  resolved "https://registry.yarnpkg.com/@jsonforms/material-tree-renderer/-/material-tree-renderer-2.0.12-rc.1.tgz#fded32a943c3b52b62dc212a58fcc6706bae160b"
+  integrity sha512-U/P4GaRrLkJYqFJ48neiVHcdTcfCHjQ8fhQzZDJsiTh7QQOjGmt4QUZkSh/j+LBehFlzSmxlPZdUKnvv6slkHA==
   dependencies:
-    "@jsonforms/core" "^2.0.8"
-    "@jsonforms/react" "^2.0.8"
+    "@jsonforms/core" "^2.0.12-rc.1"
+    "@jsonforms/react" "^2.0.12-rc.1"
     "@material-ui/core" "^1.2.1"
     "@material-ui/icons" "^1.0.0"
     ajv "^6.4.0"
-    json-refs "^3.0.4"
+    json-refs "^3.0.10"
     lodash "^4.17.4"
     react "^16.3.2"
     react-dnd "^2.5.4"
@@ -94,12 +94,12 @@
     redux "^3.7.2"
     uuid "^3.2.1"
 
-"@jsonforms/react@^2.0.8":
-  version "2.0.8"
-  resolved "https://registry.yarnpkg.com/@jsonforms/react/-/react-2.0.8.tgz#7299e1e7f838098780f88db912f26b1688cd04a1"
-  integrity sha512-NIyYMGVdv3wUiUjj0b3x8KB5tbAO7alj2EY8EdIdK6DcEiqL0tD/wjWdtYPJF/4OFk/FpzS5zOEz89+S/dHzOQ==
+"@jsonforms/react@^2.0.12-rc.1":
+  version "2.0.12-rc.1"
+  resolved "https://registry.yarnpkg.com/@jsonforms/react/-/react-2.0.12-rc.1.tgz#982ef94f1201a8d078ddb9226c0af0211d5dec1a"
+  integrity sha512-nvjIhDv8Oonbwuk+SyGhFNzUapZeyVpPz+8j680O5DnFssCOw1oveMfW/W1R6uXFrUOC3l/X4kmt+PsTOyGf/w==
   dependencies:
-    "@jsonforms/core" "^2.0.8"
+    "@jsonforms/core" "^2.0.12-rc.1"
     lodash "^4.17.4"
     react "^16.3.2"
     react-redux "^5.0.6"
@@ -6780,7 +6780,7 @@ json-parse-better-errors@^1.0.1, json-parse-better-errors@^1.0.2:
   resolved "https://registry.yarnpkg.com/json-parse-better-errors/-/json-parse-better-errors-1.0.2.tgz#bb867cfb3450e69107c131d1c514bab3dc8bcaa9"
   integrity sha512-mrqyZKfX5EhL7hvqcV6WG1yYjnjeuYDzDhhcAAUrq8Po85NBQBJP+ZDUT75qZQ98IkUoBqdkExkukOU7Ts2wrw==
 
-json-refs@^3.0.4, json-refs@^3.0.9:
+json-refs@^3.0.10, json-refs@^3.0.9:
   version "3.0.10"
   resolved "https://registry.yarnpkg.com/json-refs/-/json-refs-3.0.10.tgz#f0e0123968fb7d1f0a49cecda4cd195e233e460e"
   integrity sha512-hTBuXx9RKpyhNhCEh7AUm0Emngxf9f1caw4BzH9CQSPlTqxSJG/X5W0di8AHSeePu+ZqSYjlXLU6u2+Q/6wFmw==
@@ -10981,12 +10981,12 @@ textextensions@2:
   resolved "https://registry.yarnpkg.com/textextensions/-/textextensions-2.2.0.tgz#38ac676151285b658654581987a0ce1a4490d286"
   integrity sha512-j5EMxnryTvKxwH2Cq+Pb43tsf6sdEgw6Pdwxk83mPaq0ToeFJt6WE4J3s5BqY7vmjlLgkgXvhtXUxo80FyBhCA==
 
-"theia-tree-editor@https://github.com/eclipsesource/theia-tree-editor.git#master":
+"theia-tree-editor@https://github.com/jfaltermeier/theia-tree-editor.git#master":
   version "0.0.6"
-  resolved "https://github.com/eclipsesource/theia-tree-editor.git#93dc85a9ece33c06a6105fcf59e258ede5ce8376"
+  resolved "https://github.com/jfaltermeier/theia-tree-editor.git#aba4e2a05622d26337d64598badfd101683b88ad"
   dependencies:
-    "@jsonforms/core" "^2.0.8"
-    "@jsonforms/material-tree-renderer" "^2.0.11"
+    "@jsonforms/core" "^2.0.12-rc.1"
+    "@jsonforms/material-tree-renderer" "^2.0.12-rc.1"
     "@theia/core" "^0.3.13"
     "@theia/editor" "^0.3.13"
     "@theia/filesystem" "^0.3.13"
