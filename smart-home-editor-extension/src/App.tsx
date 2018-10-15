@@ -107,7 +107,6 @@ export const initStore = async() => {
           "id" : "powerSupply",
           "description" : "Represents a power supply that can be turned on (true) or off (false).",
           "name" : "Power Supply",
-          "multiple" : true,
           "tags" : [ "PowerOutlet" ]
         }
     )
